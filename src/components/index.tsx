@@ -1,3 +1,7 @@
+//shared
+export { default as Guarded } from "./shared/Guarded";
+
+//components
 export { default as CHome } from "./Home";
 export { default as CLogin } from "./Auth/Login";
 export { default as CRegister } from "./Auth/Register";

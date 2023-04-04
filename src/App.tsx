@@ -1,14 +1,34 @@
-import React from "react";
-import { ChakraProvider, ColorModeScript } from '@chakra-ui/react'
-import { Login } from "./container";
-import theme from './theme'
+import React, { Suspense } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Guarded } from "./components";
+import { routes } from "./routes";
 
 function App() {
   return (
-      <ChakraProvider>
-          <ColorModeScript initialColorMode="dark" />
-          <Login  />
-      </ChakraProvider>
+    <BrowserRouter>
+      <Routes>
+        {routes.map((Params, i) => {
+          const comp = () => (
+            <Suspense fallback={<div></div>}>
+              <Params.Comp />
+            </Suspense>
+          );
+          return (
+            <Route
+              key={i}
+              path={Params.path}
+              element={
+                Params.guarded ? (
+                  <Guarded children={comp()} user={"test"} />
+                ) : (
+                  comp()
+                )
+              }
+            />
+          );
+        })}
+      </Routes>
+    </BrowserRouter>
   );
 }
 
