@@ -1,8 +1,8 @@
 import React from "react";
-import { CLogin } from "../../../components";
+import { CSignIn } from "../../../components";
 import { useLogin } from "../../../queries";
 
-function Login() {
+function SignIn() {
   const { mutate, isLoading } = useLogin();
 
   const handleLogin = (
@@ -28,9 +28,9 @@ function Login() {
 
   return (
     <>
-      <CLogin handleLogin={handleLogin} isLoading={isLoading} />
+      <CSignIn />
     </>
   );
 }
 
-export default Login;
+export default SignIn;

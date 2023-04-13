@@ -1,10 +1,11 @@
 import React from "react";
-import { CHome } from "../components";
+import { CHome, Layout } from "../components";
 
 function Home() {
   return (
     <>
       <CHome />
+      <Layout />
     </>
   );
 }
