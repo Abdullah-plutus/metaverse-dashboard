@@ -1,19 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 interface GuardedRouteProps {
   children: JSX.Element | React.ComponentType;
-  user: string;
+  user?: boolean | undefined;
 }
 
 export default function Guarded(props: GuardedRouteProps) {
   const navigate = useNavigate();
 
-  React.useEffect(() => {
-    if (!props.user || props.user === "" || props.user === undefined) {
-      return navigate("/login");
+  useEffect(() => {
+    if (!props.user) {
+      navigate("/login");
     }
   }, [props.user]);
 
-  return <>{props.children}</>;
+  return <> {props.children} </>;
 }

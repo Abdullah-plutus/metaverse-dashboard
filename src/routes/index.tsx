@@ -1,9 +1,9 @@
-import { Login, Home, SignIn, Dashboard, Properties } from "../container";
+import { Login, Home, Dashboard, Properties, NotFound } from "../container";
 
 export const routes = [
   {
     path: "/",
-    Comp: Home,
+    Comp: Dashboard,
     guarded: true,
   },
   {
@@ -12,18 +12,18 @@ export const routes = [
     guarded: false,
   },
   {
-    path: "/signIn",
-    Comp: SignIn,
-    guarded: false,
-  },
-  {
     path: "/dashboard",
     Comp: Dashboard,
-    guarded: false,
+    guarded: true,
   },
   {
     path: "/properties",
     Comp: Properties,
+    guarded: true,
+  },
+  {
+    path: "*",
+    Comp: NotFound,
     guarded: false,
   },
 ];

@@ -1,0 +1,12 @@
+const LAND_STATUS = {
+  VACANT: "VACANT",
+  RUNNING: "RUNNING",
+};
+
+const LAND_TYPES = {
+  RENTAL: "RENTAL",
+  FOOD: "FOOD",
+  FUEL: "FUEL",
+};
+
+export { LAND_STATUS, LAND_TYPES };

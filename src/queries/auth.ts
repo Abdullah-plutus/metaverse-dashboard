@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query";
+import { useQuery, useMutation } from "@tanstack/react-query";
 import { API } from "../constants";
 import { apiClient } from "../services";
 
@@ -15,4 +15,13 @@ const useLogin = () => {
   return useMutation(login);
 };
 
-export { useLogin };
+const useGetCurrentUser = () => {
+  const getCurrentUser = async () => {
+    const res = await apiClient.get(API.ROUTES.AUTH_CURRENT_USER);
+    return res;
+  };
+
+  return useQuery({ queryKey: ["currentUser"], queryFn: getCurrentUser });
+};
+
+export { useLogin, useGetCurrentUser };

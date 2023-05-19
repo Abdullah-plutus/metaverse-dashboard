@@ -71,7 +71,7 @@ function Sidebar(props: any) {
       }
 
       return (
-        <NavLink to={prop.path}>
+        <NavLink to={prop.path} key={key}>
           {activeRoute(prop.path) === "active" ? (
             <Button
               boxSize="initial"

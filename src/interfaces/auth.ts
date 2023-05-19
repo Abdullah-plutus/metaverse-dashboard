@@ -3,7 +3,8 @@ export interface ILoginProps {
     username: string,
     email: string,
     password: string,
-    setError: Function
+    setError: Function,
+    reset: Function
   ) => void;
   isLoading: boolean;
 }

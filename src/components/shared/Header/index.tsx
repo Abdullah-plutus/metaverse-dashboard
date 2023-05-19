@@ -9,12 +9,15 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
-import HeaderLinks from "./HeaderLinks";
 import { IoMdLogOut } from "react-icons/io";
 import { ProfileIcon } from "../Icons";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { RootState, useAppDispatch } from "../../../slices";
+import { setCurrentUser } from "../../../slices/app";
 
 export default function AdminNavbar(props: any) {
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const [scrolled, setScrolled] = useState(false);
   const { variant, children, fixed, secondary, pageTitle, onOpen, ...rest } =
     props;
@@ -29,16 +32,16 @@ export default function AdminNavbar(props: any) {
   let navbarBorder = "transparent";
   let secondaryMargin = "0px";
   let paddingX = "15px";
-  if (props.fixed === true)
-    if (scrolled === true) {
-      navbarPosition = "fixed";
-      navbarShadow = "0px 7px 23px rgba(0, 0, 0, 0.05)";
-      navbarBg =
-        "linear-gradient(rgba(255, 255, 255, 0) 0% rgba(255, 255, 255, 0.39) @ 100%)";
-      navbarBorder = "rgba(226, 232, 240, 0.3)";
-      navbarFilter = "drop-shadow(0px 7px 23px rgba(0, 0, 0, 0.05))";
-      navbarBackdrop = "blur(42px)";
-    }
+
+  if (scrolled === true) {
+    navbarPosition = "fixed";
+    navbarShadow = "0px 7px 23px rgba(0, 0, 0, 0.05)";
+    navbarBg =
+      "linear-gradient(rgba(255, 255, 255, 0) 0% rgba(255, 255, 255, 0.39) @ 100%)";
+    navbarBorder = "rgba(226, 232, 240, 0.3)";
+    navbarFilter = "drop-shadow(0px 7px 23px rgba(0, 0, 0, 0.05))";
+    navbarBackdrop = "blur(42px)";
+  }
   if (props.secondary) {
     navbarBackdrop = "blur(42px)";
   }
@@ -48,6 +51,15 @@ export default function AdminNavbar(props: any) {
     } else {
       setScrolled(false);
     }
+  };
+  const handleLogout = () => {
+    localStorage.removeItem("authToken");
+    dispatch(
+      setCurrentUser({
+        isAuthorized: false,
+      })
+    );
+    navigate("/login");
   };
   window.addEventListener("scroll", changeNavbar);
   return (
@@ -140,7 +152,7 @@ export default function AdminNavbar(props: any) {
             alignItems="center"
             flexDirection="row"
           >
-            <NavLink to="/auth/signin">
+            <NavLink to="/#">
               <Button
                 ms="0px"
                 px="0px"
@@ -152,7 +164,12 @@ export default function AdminNavbar(props: any) {
               </Button>
             </NavLink>
 
-            <IoMdLogOut color="white" size="25" />
+            <IoMdLogOut
+              color="white"
+              size="25"
+              onClick={handleLogout}
+              cursor="pointer"
+            />
           </Flex>
         </Box>
       </Flex>

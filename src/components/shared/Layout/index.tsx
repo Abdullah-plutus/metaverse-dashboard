@@ -35,7 +35,7 @@ export default function Layout(props: any) {
     <Box>
       <Sidebar />
       <MainPanel
-        ref={mainPanel}
+        //ref={mainPanel}
         w={{
           base: "100%",
           xl: "calc(100% - 275px)",
