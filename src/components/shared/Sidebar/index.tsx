@@ -33,8 +33,8 @@ const dashboardRoutes = [
     icon: <IoBusiness />,
   },
   {
-    path: "/businesses",
-    name: "Businesses",
+    path: "/businesses-stats",
+    name: "Businesses Stats",
     icon: <StatsIcon color="inherit" />,
   },
   {

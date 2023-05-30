@@ -1,3 +1,10 @@
+export interface IProperties {
+  //  ownerId: string;
+  landId: number;
+  type: string;
+  status: string;
+}
+
 export interface AddRentalFormType {
   price: number;
   description: string;
@@ -17,12 +24,28 @@ export interface AddFuelFormType {
   thumbnail: File;
 }
 
+export interface EditFuelFormType {
+  itemName: string;
+  price: number;
+  description: string;
+  thumbnail: File | string;
+}
+
+export interface EditFoodFormType {
+  itemName: string;
+  price: number;
+  description: string;
+  thumbnail: File | string;
+}
+
 export interface IPropertiesProps {
+  dataProperties: IProperties[];
   onAddRentalBusiness: (
     landId: number,
     price: number,
     description: string,
-    resetRentalValues: Function
+    resetRentalValues: Function,
+    onClose: Function
   ) => void;
   onAddFoodBusiness: (
     landId: number,
@@ -42,21 +65,24 @@ export interface IPropertiesProps {
     setError: Function,
     resetFuelValues: Function
   ) => void;
+  isLoadingProperties: boolean;
   isLoadingAddRentalBusiness: boolean;
   isLoadingAddFoodBusiness: boolean;
   isLoadingAddFuelBusiness: boolean;
 }
 
 export interface IAddBusinessModalProps {
+  text: string;
   landId: number;
   type: string;
-  onAddRentalBusiness: (
+  onAddRentalBusiness?: (
     landId: number,
     price: number,
     description: string,
-    resetRentalValues: Function
+    resetRentalValues: Function,
+    onClose: Function
   ) => void;
-  onAddFoodBusiness: (
+  onAddFoodBusiness?: (
     landId: number,
     itemName: string,
     price: number,
@@ -65,7 +91,7 @@ export interface IAddBusinessModalProps {
     setError: Function,
     resetFoodValues: Function
   ) => void;
-  onAddFuelBusiness: (
+  onAddFuelBusiness?: (
     landId: number,
     itemName: string,
     price: number,
@@ -74,7 +100,7 @@ export interface IAddBusinessModalProps {
     setError: Function,
     resetFuelValues: Function
   ) => void;
-  isLoadingAddRentalBusiness: boolean;
-  isLoadingAddFoodBusiness: boolean;
-  isLoadingAddFuelBusiness: boolean;
+  isLoadingAddRentalBusiness?: boolean;
+  isLoadingAddFoodBusiness?: boolean;
+  isLoadingAddFuelBusiness?: boolean;
 }

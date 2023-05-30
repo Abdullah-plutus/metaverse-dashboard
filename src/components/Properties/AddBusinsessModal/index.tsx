@@ -17,6 +17,7 @@ import {
   useToast,
   HStack,
   Box,
+  Textarea,
 } from "@chakra-ui/react";
 import { FileRejection } from "react-dropzone";
 import { useForm } from "react-hook-form";
@@ -30,6 +31,7 @@ import { LAND_TYPES } from "../../../constants";
 import { Dropzone, GradientBorder } from "../..";
 
 export default function AddBusinessModal({
+  text,
   landId,
   type,
   onAddRentalBusiness,
@@ -82,7 +84,8 @@ export default function AddBusinessModal({
         landId,
         data.price,
         data.description,
-        resetRentalValues
+        resetRentalValues,
+        onClose
       )
   );
 
@@ -209,7 +212,7 @@ export default function AddBusinessModal({
                   w={{ base: "100%", lg: "fit-content" }}
                   borderRadius="20px"
                 >
-                  <Input
+                  <Textarea
                     color="white"
                     bg="rgb(19,21,54)"
                     border="transparent"
@@ -218,7 +221,8 @@ export default function AddBusinessModal({
                     size="lg"
                     w={{ base: "100%", md: "346px" }}
                     maxW="100%"
-                    type="description"
+                    h="32"
+                    //     type="description"
                     placeholder="Enter description"
                     {...registerAddRental("description")}
                   />
@@ -323,7 +327,7 @@ export default function AddBusinessModal({
                   w={{ base: "100%", lg: "fit-content" }}
                   borderRadius="20px"
                 >
-                  <Input
+                  <Textarea
                     color="white"
                     bg="rgb(19,21,54)"
                     border="transparent"
@@ -332,7 +336,8 @@ export default function AddBusinessModal({
                     size="lg"
                     w={{ base: "100%", md: "346px" }}
                     maxW="100%"
-                    type="description"
+                    h="32"
+                    //  type="description"
                     placeholder="Enter description"
                     {...registerAddFood("description", {
                       required: "Description is required",
@@ -359,6 +364,7 @@ export default function AddBusinessModal({
                     fileUploadLoading={false}
                     fileName={getFoodValues("thumbnail")?.name}
                     {...registerAddFood("thumbnail")}
+                    file={getFoodValues("thumbnail")}
                   />
                 </GradientBorder>
                 <FormErrorMessage>
@@ -461,7 +467,7 @@ export default function AddBusinessModal({
                   w={{ base: "100%", lg: "fit-content" }}
                   borderRadius="20px"
                 >
-                  <Input
+                  <Textarea
                     color="white"
                     bg="rgb(19,21,54)"
                     border="transparent"
@@ -470,7 +476,8 @@ export default function AddBusinessModal({
                     size="lg"
                     w={{ base: "100%", md: "346px" }}
                     maxW="100%"
-                    type="description"
+                    h="32"
+                    //  type="description"
                     placeholder="Enter description"
                     {...registerAddFuel("description")}
                   />
@@ -495,6 +502,7 @@ export default function AddBusinessModal({
                     fileUploadLoading={false}
                     {...registerAddFood("thumbnail")}
                     fileName={getFuelFormValue("thumbnail")?.name}
+                    file={getFuelFormValue("thumbnail")}
                   />
                 </GradientBorder>
                 <FormErrorMessage>
@@ -545,7 +553,7 @@ export default function AddBusinessModal({
           onOpen();
         }}
       >
-        Set Up Business
+        {text}
       </Button>
 
       <Modal

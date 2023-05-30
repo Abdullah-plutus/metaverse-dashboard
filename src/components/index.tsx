@@ -14,3 +14,8 @@ export { default as CDashboard } from "./Dashboard";
 export { default as CHome } from "./Home";
 export { default as CLogin } from "./Auth/Login";
 export { default as CProperties } from "./Properties";
+export { default as CRentalBusiness } from "./Business/RentalBusiness";
+export { default as CFoodBusiness } from "./Business/FoodBusiness";
+export { default as CFuelBusiness } from "./Business/FuelBusiness";
+export { default as CBusinessesStats } from "./BusinessesStats";
+export { default as AddBusinessModal } from "./Properties/AddBusinsessModal";

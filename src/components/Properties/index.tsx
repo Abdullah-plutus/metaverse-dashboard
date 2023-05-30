@@ -10,52 +10,37 @@ import {
   Thead,
   Tr,
   Td,
+  Spinner,
+  Box,
 } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 import { Card, CardBody, CardHeader } from "..";
 import AddBusinessModal from "./AddBusinsessModal";
 import { LAND_STATUS } from "../../constants";
 import { IPropertiesProps } from "../../interfaces";
-
-const tablesTableData = [
-  {
-    landId: 123,
-    type: "RENTAL",
-    status: "VACANT",
-  },
-  {
-    landId: 123,
-    type: "RENTAL",
-    status: "VACANT",
-  },
-  {
-    landId: 123,
-    type: "RENTAL",
-    status: "RUNNING",
-  },
-  {
-    landId: 125,
-    type: "FUEL",
-    status: "VACANT",
-  },
-  {
-    landId: 121,
-    type: "FOOD",
-    status: "VACANT",
-  },
-];
+import { getPageRouteName } from "../../utils";
 
 export default function Properties({
+  dataProperties,
   onAddRentalBusiness,
   onAddFoodBusiness,
   onAddFuelBusiness,
+  isLoadingProperties,
   isLoadingAddRentalBusiness,
   isLoadingAddFoodBusiness,
   isLoadingAddFuelBusiness,
 }: IPropertiesProps) {
+  const navigate = useNavigate();
+
   return (
     <Card overflowX={{ sm: "scroll", xl: "hidden" }} pb="0px">
       <CardHeader p="6px 0px 22px 0px">
-        <Text fontSize="lg" color="#fff" fontWeight="bold">
+        <Text
+          fontSize="lg"
+          color="#fff"
+          fontWeight="bold"
+          data-testid="#headingProperties"
+        >
           Properties
         </Text>
       </CardHeader>
@@ -88,10 +73,20 @@ export default function Properties({
             </Tr>
           </Thead>
           <Tbody>
-            {tablesTableData.map((row, index, arr) => {
+            {dataProperties?.map((row, index, arr) => {
               return (
                 <>
-                  <Tr>
+                  <Tr
+                    cursor="pointer"
+                    onClick={() => {
+                      if (row.status !== LAND_STATUS.VACANT)
+                        navigate(
+                          `/${getPageRouteName(row.type)}-business/${
+                            row.landId
+                          }`
+                        );
+                    }}
+                  >
                     <Td
                       minWidth={{ sm: "250px" }}
                       ps="0px"
@@ -121,6 +116,7 @@ export default function Properties({
                     <Td borderBottomColor="#56577A">
                       {row.status === LAND_STATUS.VACANT ? (
                         <AddBusinessModal
+                          text="Set Up Business"
                           landId={row.landId}
                           type={row.type}
                           onAddRentalBusiness={onAddRentalBusiness}
@@ -143,6 +139,34 @@ export default function Properties({
           </Tbody>
         </Table>
       </CardBody>
+      {isLoadingProperties ? (
+        <Box
+          id="emptyComponent"
+          display="flex"
+          py="12"
+          w="full"
+          justifyContent="center"
+          alignItems="center"
+        >
+          <Spinner />{" "}
+        </Box>
+      ) : (
+        ""
+      )}
+      {dataProperties?.length === 0 ? (
+        <Box
+          id="emptyComponent"
+          display="flex"
+          py="12"
+          w="full"
+          justifyContent="center"
+          alignItems="center"
+        >
+          No records available
+        </Box>
+      ) : (
+        ""
+      )}
     </Card>
   );
 }

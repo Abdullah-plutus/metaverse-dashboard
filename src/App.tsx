@@ -1,5 +1,6 @@
 import React, { Suspense, useEffect } from "react";
 import { useSelector } from "react-redux";
+import { Box, Spinner } from "@chakra-ui/react";
 import { RootState, useAppDispatch } from "./slices";
 import { setCurrentUser } from "./slices/app";
 import { BrowserRouter, Routes, Route, redirect } from "react-router-dom";
@@ -22,7 +23,20 @@ function App() {
       <Routes>
         {routes.map((Params, i) => {
           const comp = () => (
-            <Suspense fallback={<div></div>}>
+            <Suspense
+              fallback={
+                <Box
+                  display="flex"
+                  py="12"
+                  w="full"
+                  style={{ height: "100vh" }}
+                  justifyContent="center"
+                  alignItems="center"
+                >
+                  <Spinner />
+                </Box>
+              }
+            >
               <Params.Comp />
             </Suspense>
           );

@@ -6,4 +6,14 @@ export type {
   AddRentalFormType,
   AddFoodFormType,
   AddFuelFormType,
+  EditFuelFormType,
+  EditFoodFormType,
 } from "./properties";
+export type {
+  IRentalBusinessProps,
+  IFuelBusinessProps,
+  IFoodBusinessProps,
+  IEditRentalBusinessModalProps,
+  IEditFoodBusinessModalProps,
+  IEditFuelBusinessModalProps,
+} from "./business";

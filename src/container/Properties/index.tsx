@@ -2,6 +2,7 @@ import React from "react";
 import { useToast } from "@chakra-ui/react";
 import { CProperties, Layout } from "../../components";
 import {
+  useGetProperties,
   useAddRentalBusiness,
   useAddFoodBusiness,
   useAddFuelBusiness,
@@ -9,6 +10,13 @@ import {
 
 export default function Properties() {
   const toast = useToast();
+  const {
+    data: dataProperties,
+    isLoading: isLoadingProperties,
+    refetch,
+  } = useGetProperties();
+
+  React.useEffect(() => {}, [dataProperties]);
   const {
     mutate: mutateAddRentalBusiness,
     isLoading: isLoadingAddRentalBusiness,
@@ -22,13 +30,15 @@ export default function Properties() {
     landId: number,
     price: number,
     description: string,
-    resetRentalValues: Function
+    resetRentalValues: Function,
+    onClose: Function
   ) => {
-    console.log("price in mutate", typeof price);
     mutateAddRentalBusiness(
       { landId, price, description },
       {
         onSuccess: (res) => {
+          onClose();
+          refetch();
           resetRentalValues();
           toast({
             title: "Rental property added successfully.",
@@ -71,6 +81,7 @@ export default function Properties() {
       { landId, itemName, price, description, thumbnail },
       {
         onSuccess: (res) => {
+          refetch();
           resetFoodValues();
           toast({
             title: "Food item added successfully.",
@@ -113,6 +124,7 @@ export default function Properties() {
       { landId, itemName, price, description, thumbnail },
       {
         onSuccess: (res) => {
+          refetch();
           resetFuelValues();
           toast({
             title: "Fuel item added successfully.",
@@ -139,9 +151,11 @@ export default function Properties() {
   return (
     <Layout pageTitle="Properties">
       <CProperties
+        dataProperties={dataProperties?.userPorperties}
         onAddRentalBusiness={onAddRentalBusiness}
         onAddFoodBusiness={onAddFoodBusiness}
         onAddFuelBusiness={onAddFuelBusiness}
+        isLoadingProperties={isLoadingProperties}
         isLoadingAddRentalBusiness={isLoadingAddRentalBusiness}
         isLoadingAddFoodBusiness={isLoadingAddFoodBusiness}
         isLoadingAddFuelBusiness={isLoadingAddFuelBusiness}

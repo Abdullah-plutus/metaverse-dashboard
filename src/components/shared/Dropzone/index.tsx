@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { Text, Spinner, Flex, VStack } from "@chakra-ui/react";
+import { Text, Spinner, Flex, VStack, Image } from "@chakra-ui/react";
 import { DropEvent, FileRejection, useDropzone } from "react-dropzone";
 import { MdInsertDriveFile } from "react-icons/md";
 
@@ -42,10 +42,11 @@ interface DropzoneProps {
     event?: DropEvent
   ) => void;
   fileName?: string;
+  file?: string | File;
 }
 
 export default function Dropzone(props: DropzoneProps) {
-  const { onDrop, fileUploadLoading, fileName } = props;
+  const { onDrop, fileUploadLoading, fileName, file } = props;
   const {
     getRootProps,
     getInputProps,
@@ -68,6 +69,12 @@ export default function Dropzone(props: DropzoneProps) {
     [isDragActive, isDragReject, isDragAccept]
   );
 
+  //@ts-ignore
+  const url =
+    typeof file !== "string" && typeof file !== "undefined"
+      ? URL.createObjectURL(file)
+      : file;
+
   return (
     <div>
       {/*  @ts-ignore */}
@@ -80,7 +87,8 @@ export default function Dropzone(props: DropzoneProps) {
             </Flex>
           ) : (
             <VStack color="brand.200">
-              <MdInsertDriveFile size={72} />
+              {file ? <Image src={url} /> : <MdInsertDriveFile size={72} />}
+
               <Text
                 casing="uppercase"
                 fontSize="sm"

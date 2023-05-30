@@ -1,4 +1,14 @@
-import { Login, Home, Dashboard, Properties, NotFound } from "../container";
+import {
+  Login,
+  Home,
+  Dashboard,
+  Properties,
+  RentalBusiness,
+  FoodBusiness,
+  FuelBusiness,
+  BusinessesStats,
+  NotFound,
+} from "../container";
 
 export const routes = [
   {
@@ -21,6 +31,10 @@ export const routes = [
     Comp: Properties,
     guarded: true,
   },
+  { path: "/rental-business/:id", Comp: RentalBusiness, guarded: true },
+  { path: "/fuel-business/:id", Comp: FuelBusiness, guarded: true },
+  { path: "/food-business/:id", Comp: FoodBusiness, guarded: true },
+  { path: "/businesses-stats", Comp: BusinessesStats, guarded: true },
   {
     path: "*",
     Comp: NotFound,
