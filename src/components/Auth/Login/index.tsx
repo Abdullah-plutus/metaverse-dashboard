@@ -215,7 +215,7 @@ function Login({ handleLogin, isLoading }: ILoginProps) {
                 SIGN IN
               </Button>
             </form>
-            <Flex
+            {/* <Flex
               flexDirection="column"
               justifyContent="center"
               alignItems="center"
@@ -228,7 +228,7 @@ function Login({ handleLogin, isLoading }: ILoginProps) {
                   Sign Up
                 </Link>
               </Text>
-            </Flex>
+            </Flex> */}
           </Flex>
         </Flex>
         <Box
